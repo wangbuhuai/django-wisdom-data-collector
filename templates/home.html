@@ -1,0 +1,74 @@
+<!-- Created by Dayu Wang (dwang@stchas.edu) on 2022-03-22 -->
+
+<!-- Last updated by Dayu Wang (dwang@stchas.edu) on 2022-03-25 -->
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wisdom Google Trends Data Collector</title>
+    <link rel="stylesheet" type="text/css" href="{% static "collector/style.css" %}">
+</head>
+<body>
+    <!-- Page header -->
+    <p>
+        <img style="width:150px;" src="{% static "collector/Downloaded_2020-08-12_-_SCC_Logo_(Color)_-_SVG.svg" %}" alt="St. Charles Community College">
+    </p>
+    <p class="underline" style="margin-top:18pt;font-size:12pt;font-weight:bold;color:#7f1428;text-align:center;">
+        Wisdom Google Trends Data Collector
+    </p>
+    <p style="margin-top:18pt;font-size:10pt;color:darkcyan;text-align:center;font-style:italic;">
+        Application Developed by <strong>Dayu Wang</strong> (<a href="mailto:dwang@stchas.edu" target="_blank">dwang@stchas.edu</a>)
+    </p>
+
+    <form action='' method="post">
+    {% csrf_token %}
+
+    <!-- Date pickers -->
+    <div style="margin-top:24pt;">
+        <p><span class="bullet">&bull;</span><span style="display:inline-block;width:120px;"><label for="start-date">Start date:</label></span><input id="start-date" name="start-date" type="date" min="2004-01-01" value="2004-01-01" onkeydown="return false;" required>&nbsp;&nbsp;<span style="color:orangered;">(Please select a date later than or equal to Jan 1, 2004.)</span></p>
+        <p style="margin-top:12pt;"><span class="bullet">&bull;</span><span style="display:inline-block;width:120px;"><label for="end-date">End date:</label></span><input id="end-date" name="end-date" type="date" onkeydown="return false" required>&nbsp;&nbsp;<span style="color:orangered;">(Please select a date later than or equal to the selected start date.)</span></p>
+    </div>
+
+    <!-- Search terms -->
+    <div>
+        <p><span class="bullet">&bull;</span><label for="search-terms">Search Terms</label>&nbsp;&nbsp;<span style="color:orangered;">(One search term per row)</span></p>
+        <p style="margin-top:16pt;"><textarea id="search-terms" name="search-terms" rows=10 style="margin-left:12pt;width:778px;" required></textarea></p>
+    </div>
+
+    <!-- Suggestions -->
+    <div>
+        <p><span class="bullet">&bull;</span><span style="display:inline-block;width:120px;"><label for="suggestions">Suggestions:</label></span><input id="suggestions-on" type="radio" value="on" name="suggestion-switch"><label for="suggestions-on">On</label>&nbsp;&nbsp;<input id="suggestions-off" type="radio" value="off" name="suggestion-switch" checked><label for="suggestions-off">Off</label>&nbsp;&nbsp;<span style="color:orangered;">(One suggestion per row)</span></p>
+        <p style="margin:12pt 0 0 12pt;font-size:10pt;color:darkcyan;">If suggestions are turned on, then <strong>fuzzy matching</strong> techniques will be applied for search terms containing two or more words.</p>
+        <p style="margin-top:16pt;"><textarea id="suggestions" name="suggestions" rows=6 style="margin-left:12pt;width:778px;" disabled></textarea></p>
+    </div>
+
+    <!-- Index -->
+    <div>
+        <p><span class="bullet">&bull;</span><span style="display:inline-block;width:120px;"><label for="first-index">Index:</label></span><input id="first-index" type="number" value=1 name="first-index" min="1" onkeydown="return false;" required>&nbsp;&nbsp;<span style="color:orangered;">(Specify the number of the first search term in the output files.)</span></p>
+    </div>
+
+    <!-- Search region -->
+    <div>
+        <p><span class="bullet">&bull;</span><span style="display:inline-block;width:120px;"><label for="search-region">Search region:</label></span><input id="search-region" type="text" value="US" name="search-region" style="color:gray;" disabled>&nbsp;&nbsp;<span style="color:orangered;">(<strong style="color:red;">Cannot</strong> change)</span></p>
+    </div>
+
+    <!-- Buttons -->
+    <div style="margin-top:24pt;text-align:center;">
+        <button type="submit" formaction="submit/" style="background:#ffff99;">Start Data Collection</button><button id="form-reset" style="background:lightpink;">Reset Page</button><button id="export-file" style="background:lightcyan;">Export Input to File</button><button id="import-file" style="background:gold;">Import Input File</button>
+    </div>
+
+    </form>
+
+    <!-- Hidden objects -->
+    <div style="margin:0;" hidden>
+        <input id="file-input" type="file" hidden>
+        <a id="output-link" href="#" target="_blank" hidden></a>
+    </div>
+
+    <!-- Include front end javascript. -->
+    <script type="text/javascript" src="{% static "collector/front-end.js" %}"></script>
+</body>
+</html>

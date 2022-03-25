@@ -1,0 +1,19 @@
+<!-- Created by Dayu Wang (dwang@stchas.edu) on 2022-03-22 -->
+
+<!-- Last updated by Dayu Wang (dwang@stchas.edu) on 2022-03-22 -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit</title>
+</head>
+<body>
+    {% csrf_token %}
+    <h1>Data collected!</h1>
+    <p>
+        <a href="{{ url }}" target="_blank">Output file</a> <span style="color:orangered;">(Click to download)</span>
+    </p>
+</body>
+</html>
